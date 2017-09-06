@@ -11,7 +11,14 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.router.navigateByUrl('/login');
+    var token: string = localStorage.getItem("ava-token");
+
+    if(token) {
+      //Requete qui check si le token est toujours valide
+    } else {
+      this.router.navigateByUrl('/login');
+    }
+
   }
 
 }

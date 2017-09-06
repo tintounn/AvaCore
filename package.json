@@ -20,6 +20,7 @@
     "body-parser": "^1.17.2",
     "jsonwebtoken": "^7.4.3",
     "mssql": "^4.0.4",
+    "mysql": "^2.14.1",
     "redis": "^2.7.1",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.4.3",
