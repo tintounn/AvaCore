@@ -31,7 +31,7 @@ export class App {
                 host: "localhost",
                 port: 3306,
                 username: "root",
-                password: "",
+                password: "root",
                 database: "ava",
                 entities: [
                     User
@@ -49,7 +49,7 @@ export class App {
         instance.use(bodyParser.urlencoded({extended: false}));
         instance.use(bodyParser.json());
         instance.use(express.static(path.join(__dirname, "public", "dist")));
-        
+
         this.server = NestFactory.create(ApplicationModule, instance);
         this.server.setGlobalPrefix("api");
 

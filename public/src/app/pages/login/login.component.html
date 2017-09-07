@@ -1,24 +1,24 @@
-<section class="mat-typography">
+<section class="mat-typography vertical-window-align">
   <div class="row center-xs">
     <md-card class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <img md-card-image src="assets/img/examples/shiba2.jpg">
+      <img md-card-image height="240px" [attr.src]="user.image">
       <md-card-content>
 
           <md-form-field class="row full-width">
-            <input mdInput class="col-xs-12" type="text" placeholder="Username">
+            <input [(ngModel)]="username" mdInput class="col-xs-12" type="text" placeholder="Username">
           </md-form-field>
 
           <md-form-field class="row full-width">
-            <input mdInput class="col-xs-12" type="password" placeholder="Password">
+            <input [(ngModel)]="password" (focus)="searchUser($event)" mdInput class="col-xs-12" type="password" placeholder="Password">
           </md-form-field>
 
       </md-card-content>
       <div class="row">
         <div class="col-xs-12 col-md-6">
-          <button md-button>LOGIN</button>
+          <button (click)="login()" md-button>LOGIN</button>
         </div>
         <div class="col-xs-12 col-md-6">
-          <button md-button>CREATE</button>
+          <button (click)="create()" md-button>CREATE</button>
         </div>
       </div>
     </md-card>

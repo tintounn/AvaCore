@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    var token: string = localStorage.getItem("ava-token");
+    let token: string = localStorage.getItem("ava-token");
 
     if(token) {
       //Requete qui check si le token est toujours valide

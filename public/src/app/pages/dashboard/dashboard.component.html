@@ -1,25 +1,28 @@
 <md-sidenav-container>
-  <section class="mat-typography">
-    <md-sidenav #sidenav>
+  <md-sidenav #sidenav>
+    <section class="mat-typography">
+      <img md-card-image width="200px" [attr.src]="session.get('user').image">
 
-      <h2>AVA</h2>
+      <h1 id="sidenav-title">Ava 0.1</h1>
+      <hr/>
 
       <md-nav-list>
-        <a md-list-item href="..." ><i class="fa fa-tasks" aria-hidden="true"></i> System </a>
-        <a md-list-item href="..." ><i class="fa fa-home" aria-hidden="true"></i> Home </a>
-        <a md-list-item href="..." ><i class="fa fa-hdd-o" aria-hidden="true"></i> NAS </a>
-        <a md-list-item href="..." ><i class="fa fa-car" aria-hidden="true"></i> Drone </a>
-        <a md-list-item href="..." ><i class="fa fa-cogs" aria-hidden="true"></i> Settings </a>
+        <a md-list-item href="..."><i class="fa fa-tasks" aria-hidden="true"></i> System </a>
+        <a md-list-item href="..."><i class="fa fa-home" aria-hidden="true"></i> Home </a>
+        <a md-list-item href="..."><i class="fa fa-hdd-o" aria-hidden="true"></i> NAS </a>
+        <a md-list-item href="..."><i class="fa fa-car" aria-hidden="true"></i> Drone </a>
+        <a md-list-item href="..."><i class="fa fa-cogs" aria-hidden="true"></i> Settings </a>
       </md-nav-list>
-    </md-sidenav>
+    </section>
+  </md-sidenav>
 
-
-    <md-toolbar color="primary">
-      <button md-button (click)="sidenav.open()">
-        <i  class="fa fa-bars" aria-hidden="true"></i>
-      </button>
-    </md-toolbar>
-
+  <md-toolbar color="primary">
+    <button md-button (click)="sidenav.open()">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+  </md-toolbar>
+  <section class="mat-typography">
     <router-outlet></router-outlet>
   </section>
+
 </md-sidenav-container>
