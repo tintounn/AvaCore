@@ -38,7 +38,7 @@ export class App {
                 host: "localhost",
                 port: 3306,
                 username: "root",
-                password: "root",
+                password: "",
                 database: "ava",
                 entities: [
                     User, File, Folder, Album, Movie, Serie, Season, Episode
