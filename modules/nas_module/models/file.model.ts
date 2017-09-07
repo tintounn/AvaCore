@@ -1,5 +1,6 @@
-import {Column, DiscriminatorColumn, Entity, PrimaryGeneratedColumn, TableInheritance} from "typeorm";
+import {Column, DiscriminatorColumn, Entity, ManyToOne, PrimaryGeneratedColumn, TableInheritance} from "typeorm";
 import {} from "typeorm/decorator/entity/TableInheritance";
+import {Folder} from "./folder.model";
 
 @Entity()
 @TableInheritance("class-table")
@@ -14,4 +15,7 @@ export class File {
 
     @Column()
     size: number;
+
+    @ManyToOne(type => Folder, folder => folder.files)
+    folder: Folder;
 }

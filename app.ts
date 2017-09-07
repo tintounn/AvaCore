@@ -7,6 +7,13 @@ import bodyParser = require("body-parser");
 import {INestApplication} from "@nestjs/common/interfaces/nest-application.interface";
 import {User} from "./modules/core_module/models/user.model";
 import {Connection, createConnection} from "typeorm";
+import {File} from "./modules/nas_module/models/file.model";
+import {Folder} from "./modules/nas_module/models/folder.model";
+import {Album} from "./modules/nas_module/models/musics/album.model";
+import {Movie} from "./modules/nas_module/models/movies/movie.model";
+import {Serie} from "./modules/nas_module/models/series/serie.model";
+import {Season} from "./modules/nas_module/models/series/season.model";
+import {Episode} from "./modules/nas_module/models/series/episode.model";
 
 export class App {
     private server: INestApplication;
@@ -34,7 +41,7 @@ export class App {
                 password: "root",
                 database: "ava",
                 entities: [
-                    User
+                    User, File, Folder, Album, Movie, Serie, Season, Episode
                 ],
                 autoSchemaSync: true,
             }).then(connection => {
