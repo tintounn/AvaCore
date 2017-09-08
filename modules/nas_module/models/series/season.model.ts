@@ -1,13 +1,27 @@
 import {Folder} from "../folder.model";
-import {ClassEntityChild} from "typeorm/decorator/entity/ClassEntityChild";
 import {Column, ManyToOne, OneToMany} from "typeorm";
-import {Episode} from "./episode.model";
+import {Entity} from "typeorm/decorator/entity/Entity";
 import {Serie} from "./serie.model";
+import {Episode} from "./episode.model";
 
-@ClassEntityChild()
+@Entity()
 export class Season extends Folder {
 
     @Column()
     number: number;
+
+    @Column()
+    date: string;
+
+    @ManyToOne(type => Serie, serie => serie.seasons, {
+        onDelete: 'CASCADE'
+    })
+    serie: Serie;
+
+    @OneToMany(type => Episode, episode => episode.season, {
+        cascadeInsert: true,
+        cascadeUpdate: true
+    })
+    episodes: Episode[];
 
 }

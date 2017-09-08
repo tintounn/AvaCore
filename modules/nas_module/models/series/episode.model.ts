@@ -1,11 +1,16 @@
 import {File} from "../file.model";
-import {ClassEntityChild} from "typeorm/decorator/entity/ClassEntityChild";
+import {Entity} from "typeorm/decorator/entity/Entity";
+import {Column, ManyToOne} from "typeorm";
 import {Season} from "./season.model";
-import {ManyToOne, OneToMany} from "typeorm";
 
-@ClassEntityChild()
+@Entity()
 export class Episode extends File {
 
+    @Column()
+    duration: number;
 
-
+    @ManyToOne(type => Season, season => season.episodes, {
+        onDelete: 'CASCADE'
+    })
+    season: Season;
 }

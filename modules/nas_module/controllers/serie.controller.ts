@@ -26,21 +26,26 @@ export class SerieController {
         let serieRepository = ava.connection.getRepository(Serie);
         let seasonRepository = ava.connection.getRepository(Season);
 
-        let id = req.params['id'];
-        let obj: any;
+        let serie1 = new Serie();
+        serie1.path="";
+        serie1.name="";
+        serie1.size=0;
+        serie1.date = "";
+        serie1.summary="";
+        serie1.seasons = new Array<Season>();
 
-        serieRepository.findOneById(id).then((serie) => {
-            obj = serie;
-            return seasonRepository.createQueryBuilder("season")
-                                    .leftJoinAndSelect("folder", "folder", "folder.id=season.folderId")
-                                    .where("folder.parent="+id)
-                                    .getMany();
-                                    
-        }).then((seasons) => {
-            obj.seasons = seasons;
-            res.status(200).json({serie: obj});
-        }).catch((err) => {
-           res.status(500).json({err: err});
+        let season1 = new Season();
+        season1.path="";
+        season1.name="";
+        season1.size=0;
+        season1.date="";
+        season1.number=1;
+
+        serieRepository.save(serie1).then((serie) => {
+            serie.seasons.push(season1);
+            serieRepository.save(serie);
+
+            res.sendStatus(200);
         });
     }
 

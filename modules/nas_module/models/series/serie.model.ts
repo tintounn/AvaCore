@@ -1,11 +1,21 @@
 import {Folder} from "../folder.model";
 import {Column, OneToMany} from "typeorm";
-import {ClassEntityChild} from "typeorm/decorator/entity/ClassEntityChild";
+import {Entity} from "typeorm/decorator/entity/Entity";
 import {Season} from "./season.model";
 
-@ClassEntityChild()
+@Entity()
 export class Serie extends Folder {
+
     @Column()
     summary: string;
+
+    @Column()
+    date: string;
+
+    @OneToMany(type => Season, season => season.serie, {
+        cascadeInsert: true,
+        cascadeUpdate: true
+    })
+    seasons: Season[];
 
 }
