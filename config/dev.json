@@ -1,0 +1,19 @@
+{
+  "orm": {
+    "dialect": "mysql",
+    "user": "root",
+    "password": "root",
+    "port": 3306,
+    "database": "ava",
+    "host": "localhost"
+  },
+  "http": {
+    "port": 3000
+  },
+  "nas": {
+    "root": "./files",
+    "queueLength": 5
+  },
+  "zwave": "/dev/ttyACM0",
+  "secret": "secrethash"
+}

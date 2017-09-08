@@ -1,22 +1,22 @@
 import {Component} from "@nestjs/common";
 import * as jwt from "jsonwebtoken";
+import {App} from "../../../app";
 
+declare let ava: App;
 
 @Component()
 export class JwtService {
-
-    private secret: string = "secret";
 
     generateToken(data: any): string {
         return jwt.sign({
             exp: Math.floor(Date.now() / 1000) + (60 * 60),
             data: data
-        }, this.secret);
+        }, ava.config.get('secret'));
     }
 
     verifyToken(token: string): boolean {
         try {
-            jwt.verify(token, this.secret);
+            jwt.verify(token, ava.config.get('secret'));
             return true;
         } catch(e) {
             return false;
