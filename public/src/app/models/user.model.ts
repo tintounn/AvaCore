@@ -4,7 +4,7 @@ import {RequestService} from "../services/request.service";
 
 export class User {
 
-  constructor(data: any) {
+  constructor(data) {
     if(data.id) this.id = data.id;
     this.username = data.username;
     this.image = data.image;
@@ -19,12 +19,12 @@ export class User {
 export class UserFactory {
   constructor(private request: RequestService) {}
 
-  public login(username: string, password: string): Promise<string> {
-    return this.request.post('/users', {username: username, password: password}).then((response) => response.json().token);
+  public login(user: User): Promise<any> {
+    return this.request.post('/users', user).then((response) => response.json());
   }
 
-  public create(username: string, password: string): Promise<string> {
-    return this.request.post('/users/create', {username: username, password: password}).then((response) => response.json().token);
+  public create(user: User): Promise<any> {
+    return this.request.post('/users/create', user).then((response) => response.json());
   }
 
   public search(username: string): Promise<User> {

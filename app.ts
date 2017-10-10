@@ -4,7 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './modules/app.module';
 import * as path from 'path';
 import * as nconf from 'nconf';
-import bodyParser = require("body-parser");
+import * as bodyParser from 'body-parser';
 import {INestApplication} from "@nestjs/common/interfaces/nest-application.interface";
 import {User} from "./modules/core_module/models/user.model";
 import {Connection, createConnection} from "typeorm";
@@ -23,67 +23,62 @@ export class App {
     public config: any;
 
     constructor() {
-        this.initConfig().then(() => {
-            return this.initDatabase();
-        }).then(() => {
-            return this.initNest();
-        }).then(() => {
-            return this.initServices();
-        }).then(() => {
-            return this.start();
-        }).catch((err) => {
-            console.error(err);
-        });
+        this.start();
     }
 
-    private initConfig(): Promise<void> {
+    private async start() {
+        try {
+            await this.initConfig();
+            await this.initDatabase();
+            await this.initNest();
+            await this.initServices();
+            await this.initHttp();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    private async initConfig(): Promise<void> {
         this.env = "dev";
         nconf.argv();
 
         if(nconf.get('prod') || nconf.get('production')) this.env = 'prod';
         nconf.file(path.join(__dirname, 'config', this.env + '.json'));
         this.config = nconf;
-
-        return Promise.resolve();
     }
 
-    private initDatabase(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            createConnection({
-                type: this.config.get('orm:dialect'),
-                host: this.config.get('orm:host'),
-                port: this.config.get('orm:orm'),
-                username: this.config.get('orm:user'),
-                password: this.config.get('orm:password'),
-                database: this.config.get('orm:database'),
-                entities: [
-                    User, File, Folder, Album, Movie, Serie, Season, Episode
-                ],
-                autoSchemaSync: true,
-            }).then(connection => {
-                this.connection = connection;
-                resolve();
-            }).catch(reject);
-        });
+    private async initDatabase() {
+        let opts: any = {
+            type: this.config.get('orm:dialect'),
+            host: this.config.get('orm:host'),
+            port: this.config.get('orm:orm'),
+            username: this.config.get('orm:user'),
+            password: this.config.get('orm:password'),
+            database: this.config.get('orm:database'),
+            entities: [
+                User, File, Folder, Album, Movie, Serie, Season, Episode
+            ],
+            synchronize: true
+        };
+
+        this.connection = await createConnection(opts);
     }
 
-    private initNest(): Promise<void> {
+    private async initNest(): Promise<void> {
         const instance = express();
         instance.use(bodyParser.urlencoded({extended: false}));
         instance.use(bodyParser.json());
         instance.use(express.static(path.join(__dirname, "public", "dist")));
 
-        this.server = NestFactory.create(ApplicationModule, instance);
+        this.server = await NestFactory.create(ApplicationModule, instance);
         this.server.setGlobalPrefix("api");
 
-        return Promise.resolve();
     }
 
-    private initServices(): Promise<void> {
-        return Promise.resolve();
+    private async initServices(): Promise<void> {
     }
 
-    private start() {
+    private async initHttp(): Promise<void> {
         this.server.listen(this.config.get('http:port'), () => console.log('Application is listening on port ' + this.config.get('http:port')));
     }
 }

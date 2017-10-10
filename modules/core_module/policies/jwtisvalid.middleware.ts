@@ -1,6 +1,6 @@
 import { Middleware, NestMiddleware } from '@nestjs/common';
 import {Request, Response} from "express";
-import {JwtService} from "../services/JwtService";
+import {JwtService} from "../services/jwt.service";
 
 
 @Middleware()

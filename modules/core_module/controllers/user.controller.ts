@@ -1,8 +1,8 @@
-import {Controller, Get, Post} from "@nestjs/common";
+import {Controller, Get, Post, Req, Res} from "@nestjs/common";
 import {Request, Response} from "express";
 import {App} from "../../../app";
 import {User} from "../models/user.model";
-import {JwtService} from "../services/JwtService";
+import {JwtService} from "../services/jwt.service";
 
 declare let ava: App;
 
@@ -12,54 +12,57 @@ export class UserController {
     constructor(private jwtService: JwtService) {}
 
     @Post("/create")
-    create(req: Request, res: Response) {
+    async create(@Req() req, @Res() res) {
         let userRepository = ava.connection.getRepository(User);
         let user = new User();
         user.username = req.body['username'];
         user.password = req.body['password'];
         user.image = "https://inayatmiah.files.wordpress.com/2015/01/fbpic.jpg";
 
-        userRepository.save(user).then((user) => {
+        try {
+            await userRepository.save(user);
             let token = this.jwtService.generateToken({id: user.id});
+
             res.status(200).json({token: token});
-        }).catch((err) => {
-            res.status(500).json({err: err});
-        });
+        } catch (error) {
+            res.status(500).json({err: error});
+        }
     }
 
     @Post("")
-    login(req: Request, res: Response) {
+    async login(@Req() req, @Res() res) {
         let userRepository = ava.connection.getRepository(User);
         let username = req.body['username'];
         let password = req.body['password'];
 
-        userRepository.findOne({username: username, password: password}).then((user) => {
-            if (!user) {
+        try {
+            let user = await userRepository.findOne({username: username, password: password});
+            if(!user) {
                 res.sendStatus(401);
             } else {
                 let token = this.jwtService.generateToken({id: user.id});
                 res.status(200).json({token: token});
             }
-        }).catch((err) => {
-            res.status(500).json({err: err});
-        });
+        } catch (error) {
+            res.status(500).json({err: error});
+        }
     }
 
     @Get("/search/:username")
-    getUserInfo(req: Request, res: Response) {
+    async getUserInfo(@Req() req, @Res() res) {
         let userRepository = ava.connection.getRepository(User);
         let username = req.params['username'];
 
-        userRepository.findOne({username: username}).then((user) => {
+        try {
+            let user = await userRepository.findOne({username: username}); 
             if (!user) {
-                res.status(200).json({user: {}});
+                res.sendStatus(404);
             } else {
                 delete user.password;
                 res.status(200).json({user: user});
-            }
-        }).catch((err) => {
-            console.log(err);
-            res.status(500).json({err: err});
-        });
+            }           
+        } catch (error) {
+            res.status(500).json({err: error});
+        }
     }
 }

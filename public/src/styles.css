@@ -1,18 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-
-.full-width {
-  width: 100%;
-}
-
-html, body, app-root {
-  margin: 0 auto;
-  height: 100%;
-  width: 100%;
-}
-
-.vertical-window-align {
-  margin-top: 50vh;
-  transform: translateY(-50%);
+body, html{
+  height:100%;
 }
