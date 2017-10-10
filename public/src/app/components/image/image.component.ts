@@ -23,6 +23,10 @@ export class ImageComponent implements OnInit {
     this.sanitizeAndSetImage(this.default);
   }
 
+  onError() {
+    this.sanitizeAndSetImage(this.default);
+  }
+
   sanitizeAndSetImage(src: string) {
     this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(src);
   }

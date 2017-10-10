@@ -1,1 +1,1 @@
-<img src="http://profile.actionsprout.com/default.jpeg" [attr.class]="class" [attr.style]="safeStyle">
+<img (error)="onError()" [attr.src]="safeSrc" [attr.class]="class" [attr.style]="safeStyle">
