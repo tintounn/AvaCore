@@ -1,29 +1,33 @@
-<div class="row h-100 justify-content-center align-items-center">
-    <div class="col-lg-4 col-md-6 col-sm-8 col-xs-10">
-
-        <app-image
-          #profilPicture 
-          class="img-fluid rounded mx-auto d-block" 
-          style="max-height: 200px; margin-bottom: 10px;"
-          [default]="'http://profile.actionsprout.com/default.jpeg'">
-        </app-image>
-
-        <div class="card text-center">
-          <div class="card-body">
-            <div class="form-group">
-                <input [(ngModel)]="user.username" name="username" class="col-12 form-control form-control-sm" type="text" placeholder="Nom d'utilisateur">
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-lg-4 col-md-6 col-sm-8 col-xs-10">
+    
+            <app-image
+              #profilPicture 
+              class="img-fluid rounded mx-auto d-block" 
+              style="max-height: 200px; margin-bottom: 10px;"
+              [default]="'http://profile.actionsprout.com/default.jpeg'">
+            </app-image>
+    
+            <div class="card text-center">
+              <div class="card-body">
+                <div class="form-group">
+                    <input [(ngModel)]="user.username" name="username" class="col-12 form-control form-control-sm" type="text" placeholder="Nom d'utilisateur">
+                </div>
+                <div class="form-group">
+                    <input (focus)="searchUser($event)" [(ngModel)]="user.password" name="password" class="col-12 form-control form-control-sm" type="password" placeholder="Mot de passe">
+                </div>
+    
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button (click)="login()" type="button" class="btn btn-primary">Connexion</button>
+                  <button (click)="create()" type="button" class="btn btn-success">Créer</button>
+                </div>
+                
+              </div>
             </div>
-            <div class="form-group">
-                <input (focus)="searchUser($event)" [(ngModel)]="user.password" name="password" class="col-12 form-control form-control-sm" type="password" placeholder="Mot de passe">
-            </div>
-
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button (click)="login()" type="button" class="btn btn-primary">Connexion</button>
-              <button (click)="create()" type="button" class="btn btn-success">Créer</button>
-            </div>
-            
-          </div>
-        </div>
-
-  </div>
+    
+      </div>
+    </div> 
 </div>
+
+

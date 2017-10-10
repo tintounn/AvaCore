@@ -9,6 +9,8 @@ import {User} from "../../models/user.model";
 })
 export class DashboardComponent implements OnInit {
 
+  public isCollapsed: boolean = false;
+
   constructor(public session: SessionService) { }
 
   ngOnInit() {

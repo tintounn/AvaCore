@@ -4,7 +4,7 @@ import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-import { AlertModule } from 'ngx-bootstrap';
+import { AlertModule, CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -34,7 +34,9 @@ import { ImageComponent } from './components/image/image.component';
     HttpModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    CollapseModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [RequestService, SessionService, UserFactory],
   bootstrap: [AppComponent]
