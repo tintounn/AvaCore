@@ -1,8 +1,11 @@
-import {Controller, Delete, Get, Post, Put} from "@nestjs/common";
+import {Controller, Delete, Get, Post, Put, Req, Res} from "@nestjs/common";
 import {Request, Response} from "express";
+import * as fs from 'fs';
+
 import {App} from "../../../app";
 import {Serie} from "../models/series/serie.model";
 import {Season} from "../models/series/season.model";
+
 
 declare let ava: App;
 
@@ -12,17 +15,29 @@ export class SerieController {
     constructor() {}
 
     @Post("")
-    create(req: Request, res: Response) {
+    async create(@Req() req, @Res() res) {
+        let serieRepository = ava.connection.getRepository(Serie);
+        let data = req.body;
+        data.path = ava.config.get('nas:root') + "/" + data.name;
 
+        try {
+            let serie = await serieRepository.save(data);
+            fs.mkdirSync(data.path);
+
+            res.status(201).json(serie);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+        
     }
 
     @Put("/:id")
-    update(req: Request, res: Response) {
+    update(@Req() req, @Res() res) {
 
     }
 
     @Get("/:id")
-    findOne(req: Request, res: Response) {
+    findOne(@Req() req, @Res() res) {
         let serieRepository = ava.connection.getRepository(Serie);
         let seasonRepository = ava.connection.getRepository(Season);
 
@@ -50,7 +65,7 @@ export class SerieController {
     }
 
     @Get("")
-    find(req: Request, res: Response) {
+    find(@Req() req, @Res() res) {
         let serieRepository = ava.connection.getRepository(Serie);
 
         serieRepository.find().then((series) => {
@@ -61,7 +76,7 @@ export class SerieController {
     }
 
     @Delete("/:id")
-    remove(req: Request, res: Response) {
+    remove(@Req() req, @Res() res) {
 
     }
 }
