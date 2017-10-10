@@ -1,0 +1,37 @@
+DeviceInterface => {
+    sendValue
+}
+
+DeviceModel => {
+    id,
+    name,
+    piece,
+    values
+}
+
+ZWaveDeviceModel => {
+    extend DeviceModel,
+    nodeId,
+    nodeInfo
+}
+
+WifiDeviceModel => {
+    extend DeviceModel
+    ip
+}
+
+AndroidTvDeviceModel => {
+    extend WifiDeviceModel
+}
+
+DevicePage => {
+    drag and drop
+    listes: => {
+        non associés
+        la liste des pieces
+    }
+}
+
+DeviceItem => {
+    card
+}

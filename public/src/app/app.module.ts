@@ -4,7 +4,7 @@ import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-import { AlertModule, CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { AlertModule, CollapseModule, BsDropdownModule, SortableModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -18,6 +18,7 @@ import { UserFactory } from "./models/user.model";
 import { SessionService } from "./services/session.service";
 import { RequestService } from './services/request.service';
 import { ImageComponent } from './components/image/image.component';
+import { DeviceCardItemComponent } from './components/device-card-item/device-card-item.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ImageComponent } from './components/image/image.component';
     LoginComponent,
     DashboardComponent,
     NasComponent,
-    ImageComponent
+    ImageComponent,
+    DeviceCardItemComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { ImageComponent } from './components/image/image.component';
     AppRoutingModule,
     AlertModule.forRoot(),
     CollapseModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    SortableModule.forRoot()
   ],
   providers: [RequestService, SessionService, UserFactory],
   bootstrap: [AppComponent]

@@ -1,8 +1,10 @@
 import {Column, DiscriminatorColumn, Entity, ManyToOne, PrimaryGeneratedColumn, TableInheritance} from "typeorm";
-import {} from "typeorm/decorator/entity/TableInheritance";
-import {Folder} from "./folder.model";
+import * as fs from 'fs';
 
-export class File {
+import {Folder} from "./folder.model";
+import {DownloadableInterface} from '../class/downloadable.interface';
+
+export class File implements DownloadableInterface {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -18,4 +20,9 @@ export class File {
 
     @Column()
     mime: string;
+
+    download(out: any) {
+        let readStream = fs.createReadStream(this.path);
+        readStream.pipe(out);
+    }
 }
