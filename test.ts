@@ -1,20 +1,24 @@
-import {WaitGroup} from './libs/wait-group/wait-group.lib';
+class A {
+    public static nom: string;
 
-let wg = new WaitGroup();
+    public static getGetters(): string[] {
+        return Object.keys(this.constructor.prototype).filter(name => {
+            return typeof Object.getOwnPropertyDescriptor(this.prototype, name)["get"] === "function"
+        });
+    }
 
-wg.wait(() => {
-    console.log('All task done');
-});
+    public static getSetters(): string[] {
+        return Object.keys(this.constructor.prototype).filter(name => {
+            return typeof Object.getOwnPropertyDescriptor(this.prototype, name)["set"] === "function"
+        });
+    }
+}
 
-wg.add();
-setTimeout(() => {
-    console.log('Task 1 done');
-    wg.done();
-}, 1000);
+class B extends A {
+    public test: string;
+}
 
-wg.add();
-setTimeout(() => {
-    console.log('Task 2 done');
-    wg.done();
-}, 2000);
 
+for(let vars in B.prototype) {
+    console.log(vars);
+}

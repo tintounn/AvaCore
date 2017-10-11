@@ -1,28 +1,17 @@
-import {Column, DiscriminatorColumn, Entity, ManyToOne, PrimaryGeneratedColumn, TableInheritance} from "typeorm";
+import {STRING, NUMBER} from 'sequelize';
 import * as fs from 'fs';
 
 import {Folder} from "./folder.model";
 import {DownloadableInterface} from '../class/downloadable.interface';
 
-export class File implements DownloadableInterface {
+export class File {
 
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
-    name: string;
-
-    @Column()
-    path: string;
-
-    @Column()
-    size: number;
-
-    @Column()
-    mime: string;
-
-    download(out: any) {
-        let readStream = fs.createReadStream(this.path);
-        readStream.pipe(out);
+    static get properties(): any {
+        return {
+            name: {type: STRING},
+            path: {type: STRING},
+            size: {type: NUMBER},
+            mime: {type: STRING}
+        }
     }
 }
