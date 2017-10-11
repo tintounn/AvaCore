@@ -59,13 +59,7 @@ export class SerieController {
         let searchValue = req.query['name'];
 
         try {
-            let seriesQuery = serieRepository.createQueryBuilder("serie")
-                                              .innerJoinAndSelect("serie.seasons", "season");
-            if(searchValue) {
-                seriesQuery = seriesQuery.where("serie.name LIKE '%:name%'", {name: searchValue});
-            }
-
-            let series = await seriesQuery.getMany();
+            let series = await serieRepository.find();
             for(let index in series) {
                 series[index].seasons = await seasonRepository.find({select: ['id']});
             }

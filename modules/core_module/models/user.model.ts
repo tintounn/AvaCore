@@ -1,20 +1,17 @@
-import {STRING, NUMBER} from "sequelize";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
+@Entity()
 export class User {
 
-    static get table(): string {
-        return "user";
-    }
+    @PrimaryGeneratedColumn()
+    id: number;
 
-    static get properties(): any {
-        return {
-            'username': {type: STRING},
-            'password': {type: STRING},
-            'image': {type: STRING}
-        }
-    }
+    @Column()
+    username: string;
 
-    static get relations(): any {
-        return [];
-    }
-}
+    @Column()
+    password: string;
+
+    @Column()
+    image: string;
+} 

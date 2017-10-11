@@ -4,7 +4,7 @@
     "user": "root",
     "password": "root",
     "port": 3306,
-    "database": "ava",
+    "database": "./mydb.sql",
     "host": "localhost",
     "storage": "./mydb.sql"
   },
