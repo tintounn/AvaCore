@@ -12,15 +12,23 @@ export class ImageComponent implements OnInit {
   @Input("default") default: string;
   @Input("class") class: string;
   @Input("style") style: any;
+  @Input("src") src: Subject<string> = new Subject<string>();
 
   public safeSrc: any;
   public safeStyle: any;
   
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer) { 
+    this.src.subscribe((value) => {
+      this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(value);
+    });
+  }
 
   ngOnInit() {
     this.safeStyle = this.sanitizer.bypassSecurityTrustStyle(this.style);
-    this.sanitizeAndSetImage(this.default);
+
+    if(this.default) {
+      this.sanitizeAndSetImage(this.default);
+    }
   }
 
   onError() {
@@ -28,6 +36,6 @@ export class ImageComponent implements OnInit {
   }
 
   sanitizeAndSetImage(src: string) {
-    this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(src);
+    this.src.next(src);
   }
 }

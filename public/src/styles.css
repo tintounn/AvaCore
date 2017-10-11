@@ -3,3 +3,7 @@
 body, html{
   height:100%;
 }
+
+bs-datepicker-container { 
+  z-index: 3000; 
+}

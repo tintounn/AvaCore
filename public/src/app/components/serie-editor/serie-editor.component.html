@@ -1,0 +1,12 @@
+<div class="form-group">
+  <input [(ngModel)]="serie.name" name="name" class="col-12 form-control form-control-sm" type="text" placeholder="Nom de la série">
+</div>
+<div class="form-group">
+  <textarea [(ngModel)]="serie.summary" name="summary" class="col-12 form-control form-control-sm" placeholder="Résumé de la série"></textarea>
+</div>
+<div class="form-group">
+  <input [(ngModel)]="serie.image" name="image" class="col-12 form-control form-control-sm" type="text" placeholder="Image de la série">
+</div>
+<div class="form-group">
+  <input type="text" [(ngModel)]="serie.date" class="col-12 form-control form-control-sm" name="date" bsDatepicker>
+</div>

@@ -3,8 +3,6 @@ import * as archiver from 'archiver';
 
 import {DownloadableInterface} from '../class/downloadable.interface';
 
-
-
 export class Folder implements DownloadableInterface {
 
     @PrimaryGeneratedColumn()

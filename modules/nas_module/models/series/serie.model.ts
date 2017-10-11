@@ -12,6 +12,9 @@ export class Serie extends Folder {
     @Column()
     date: string;
 
+    @Column()
+    image: string;
+
     @OneToMany(type => Season, season => season.serie, {
         cascadeInsert: true,
         cascadeUpdate: true

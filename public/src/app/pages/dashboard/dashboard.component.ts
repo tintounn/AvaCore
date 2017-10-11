@@ -9,7 +9,7 @@ import {User} from "../../models/user.model";
 })
 export class DashboardComponent implements OnInit {
 
-  public isCollapsed: boolean = false;
+  public isCollapsed: boolean = true;
 
   constructor(public session: SessionService) { }
 
