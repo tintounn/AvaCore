@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AlertModule, CollapseModule, BsDropdownModule, SortableModule, 
-          BsDatepickerModule, BsModalService, ModalModule } from 'ngx-bootstrap';
+          BsDatepickerModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,10 @@ import { SerieEditorComponent } from './components/serie-editor/serie-editor.com
 import { SeasonEditorComponent } from './components/season-editor/season-editor.component';
 import { EpisodeEditorComponent } from './components/episode-editor/episode-editor.component';
 import { SerieComponent } from './pages/serie/serie.component';
+import { SerieCardItemComponent } from './components/serie-card-item/serie-card-item.component';
+import { SerieViewerComponent } from './components/serie-viewer/serie-viewer.component';
+import { SeasonViewerComponent } from './components/season-viewer/season-viewer.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 @NgModule({
@@ -39,7 +43,11 @@ import { SerieComponent } from './pages/serie/serie.component';
     SerieEditorComponent,
     SeasonEditorComponent,
     EpisodeEditorComponent,
-    SerieComponent
+    SerieComponent,
+    SerieCardItemComponent,
+    SerieViewerComponent,
+    SeasonViewerComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -52,9 +60,10 @@ import { SerieComponent } from './pages/serie/serie.component';
     BsDropdownModule.forRoot(),
     SortableModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TooltipModule.forRoot()
   ],
-  providers: [RequestService, BsModalService, SessionService, UserFactory, SerieFactory],
+  providers: [RequestService, SessionService, UserFactory, SerieFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

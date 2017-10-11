@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Serie, SerieFactory } from '../../models/serie.model';
-import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { SerieEditorComponent } from "../../components/serie-editor/serie-editor.component";
+import { ModalDirective } from 'ngx-bootstrap/modal';
+
 
 @Component({
   selector: 'app-serie',
@@ -10,21 +11,54 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 })
 export class SerieComponent implements OnInit {
 
-  public serieEditorModalRef: BsModalRef;
+  @ViewChild("serieEditor") serieEditor: SerieEditorComponent;
+  @ViewChild("serieEditorModal") serieEditorModal: ModalDirective;
+
+  @ViewChild("serieViewerModal") serieViewerModal: ModalDirective;
+
   public series: Serie[] = [];
 
-  constructor(private serieFactory: SerieFactory, private modalService: BsModalService) { }
+  constructor(private serieFactory: SerieFactory) { }
 
   ngOnInit() {
-    this.serieFactory.findAll().then((series) => {
+    this.findAllSeries();
+  }
+
+  findAllSeries(search: string = "") {
+    this.serieFactory.findAll(search).then((series) => {
       this.series = series;
     }).catch((err) => {
       console.log(err);
     });
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.serieEditorModalRef = this.modalService.show(template);
+  openSerie(index: number) {
+    this.serieFactory.find(this.series[index].id).then((serie) => {
+      console.log(serie);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
+  saveSerie() {
+    this.serieEditor.save();
+  }
+
+  updateSerie(index: number) {
+    this.serieEditor.update(this.series[index]);
+    this.serieEditorModal.show();
+  }
+
+  deleteSerie(index: number) {
+
+  }
+
+  serieSaved(serie: Serie) {
+    this.series.push(serie);
+    this.serieEditorModal.hide();
+  }
+
+  searchFired(value: string) {
+    this.findAllSeries(value);
+  }
 }

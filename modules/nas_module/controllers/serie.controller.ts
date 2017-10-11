@@ -19,14 +19,15 @@ export class SerieController {
         let serieRepository = ava.connection.getRepository(Serie);
         let data = req.body;
         data.path = ava.config.get('nas:root') + "/" + data.name;
+        data.size = 0;
 
         try {
             let serie = await serieRepository.save(data);
             fs.mkdirSync(data.path);
 
-            res.status(201).json(serie);
+            res.status(201).json({serie: serie});
         } catch (error) {
-            res.status(500).json(error);
+            res.status(500).json({err: error});
         }
         
     }
@@ -37,42 +38,43 @@ export class SerieController {
     }
 
     @Get("/:id")
-    findOne(@Req() req, @Res() res) {
+    async findOne(@Req() req, @Res() res) {
         let serieRepository = ava.connection.getRepository(Serie);
-        let seasonRepository = ava.connection.getRepository(Season);
+        let id = req.params['id'];
 
-        let serie1 = new Serie();
-        serie1.path="";
-        serie1.name="";
-        serie1.size=0;
-        serie1.date = "";
-        serie1.summary="";
-        serie1.seasons = new Array<Season>();
-
-        let season1 = new Season();
-        season1.path="";
-        season1.name="";
-        season1.size=0;
-        season1.date="";
-        season1.number=1;
-
-        serieRepository.save(serie1).then((serie) => {
-            serie.seasons.push(season1);
-            serieRepository.save(serie);
-
-            res.sendStatus(200);
-        });
+        try {
+            let serie = await serieRepository.findOneById(id, {relations: ['seasons']});
+            
+            res.status(200).json({serie: serie});
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({err: error});
+        }
     }
 
     @Get("")
-    find(@Req() req, @Res() res) {
+    async find(@Req() req, @Res() res) {
         let serieRepository = ava.connection.getRepository(Serie);
+        let seasonRepository = ava.connection.getRepository(Season);
+        let searchValue = req.query['name'];
 
-        serieRepository.find().then((series) => {
+        try {
+            let seriesQuery = serieRepository.createQueryBuilder("serie")
+                                              .innerJoinAndSelect("serie.seasons", "season");
+            if(searchValue) {
+                seriesQuery = seriesQuery.where("serie.name LIKE '%:name%'", {name: searchValue});
+            }
+
+            let series = await seriesQuery.getMany();
+            for(let index in series) {
+                series[index].seasons = await seasonRepository.find({select: ['id']});
+            }
+            
             res.status(200).json({series: series});
-        }).catch((err) => {
-            res.status(500).json({err: err});
-        })
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({err: error});
+        }
     }
 
     @Delete("/:id")

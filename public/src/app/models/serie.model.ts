@@ -37,7 +37,7 @@ export class SerieFactory {
     return this.request.get('/series/' + id).then((response) => new Serie(response.json().serie));
   }
 
-  public findAll(): Promise<Serie[]> {
-    return this.request.get('/series').then(response => response.json().series.map((elt) => { return new Serie(elt); }));
+  public findAll(search: string): Promise<Serie[]> {
+    return this.request.get('/series?name=' + search).then(response => response.json().series.map((elt) => { return new Serie(elt); }));
   }
 }

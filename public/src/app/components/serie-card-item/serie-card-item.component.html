@@ -1,0 +1,14 @@
+<app-image
+  class="img-fluid rounded mx-auto d-block" 
+  style="max-height: 200px;"
+  [src]="serie.image"
+  [tooltip]="popTemplate"
+  placement="bottom">
+</app-image>
+
+<template #popTemplate>
+  <div class="text-center">
+    <h5>{{serie.name}}</h5>
+    <p>{{serie.seasons.length}} saisons</p>
+  </div>
+</template>

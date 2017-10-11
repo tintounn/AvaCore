@@ -4,8 +4,9 @@
     "user": "root",
     "password": "root",
     "port": 3306,
-    "database": "./mydb.sql",
-    "host": "localhost"
+    "database": "ava",
+    "host": "localhost",
+    "storage": "./mydb.sql"
   },
   "http": {
     "port": 3000

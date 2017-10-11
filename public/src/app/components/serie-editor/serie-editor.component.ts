@@ -40,4 +40,8 @@ export class SerieEditorComponent implements OnInit {
   reset() {
     this.serie = new Serie();
   }
+
+  update(serie: Serie) {
+    this.serie = serie;
+  }
 }

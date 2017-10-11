@@ -1,13 +1,58 @@
-<button type="button" class="btn btn-primary" (click)="openModal(serieEditorTemplate)">Open modal</button>
+<div class="row">
+  <div class="col-10">
+    <app-search-bar style="width: 100%" (fired)="searchFired($event)"></app-search-bar>
+  </div>
 
-<template #serieEditorTemplate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Editer une serie</h4>
-    <button type="button" class="close pull-right" (click)="serieEditorModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <div class="col-2">
+    <button style="width: 100%" type="button" class="btn btn-primary" (click)="serieEditorModal.show()">+</button>      
   </div>
-  <div class="modal-body">
-    <app-serie-editor></app-serie-editor>
+</div>
+
+<br>
+
+<div class="row">
+  <ng-container *ngFor="let serie of series; let i = index;">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px">
+      <app-serie-card-item (click)="openSerie(i)" [serie]="serie"></app-serie-card-item>
+    </div>
+  </ng-container>
+</div>
+
+<div class="modal fade" bsModal #serieEditorModal="bs-modal">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Editer une serie</h4>
+        <button type="button" class="close pull-right" (click)="serieEditorModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <app-serie-editor (saved)="serieSaved($event)" #serieEditor></app-serie-editor>
+      </div>
+      <div class="modal-footer">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-success" (click)="saveSerie()">Enregistrer</button>
+            <button type="button" class="btn btn-secondary" (click)="serieEditorModal.hide()">Close</button>
+          </div>
+      </div>
+    </div>
   </div>
-</template>
+</div>
+
+<div class="modal fade" bsModal #serieViewerModal="bs-modal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+            
+        </div>
+        <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-secondary" >Close</button>
+              <button type="button" class="btn btn-danger" >Supprimer</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
