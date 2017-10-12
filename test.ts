@@ -1,24 +1,17 @@
-class A {
-    public static nom: string;
+import "reflect-metadata";
 
-    public static getGetters(): string[] {
-        return Object.keys(this.constructor.prototype).filter(name => {
-            return typeof Object.getOwnPropertyDescriptor(this.prototype, name)["get"] === "function"
-        });
-    }
-
-    public static getSetters(): string[] {
-        return Object.keys(this.constructor.prototype).filter(name => {
-            return typeof Object.getOwnPropertyDescriptor(this.prototype, name)["set"] === "function"
-        });
-    }
+function property(target: object, propertyKey: string) {
+    let columns: string[] = Reflect.getMetadata("ok", target.constructor) || [];
+    console.log(columns);
+    columns.push(propertyKey);
+    Reflect.defineMetadata("ok", columns, target.constructor);
 }
 
-class B extends A {
-    public test: string;
+function classs(target: object, propertyKey: string) {
+
 }
 
-
-for(let vars in B.prototype) {
-    console.log(vars);
+class Point {
+	@property x: number;
+	@property y: number;
 }

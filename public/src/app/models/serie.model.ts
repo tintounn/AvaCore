@@ -12,7 +12,7 @@ export class Serie extends Folder {
     this.summary = data.summary;
     this.image = data.image;
     this.date = data.date;
-    this.seasons = data.seasons;
+    this.seasons = data.seasons || [];
   }
 
   public summary: string;

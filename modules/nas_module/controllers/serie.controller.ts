@@ -1,6 +1,7 @@
 import {Controller, Delete, Get, Post, Put, Req, Res} from "@nestjs/common";
 import {Request, Response} from "express";
 import * as fs from 'fs';
+import * as path from 'path';
 
 import {App} from "../../../app";
 import {Serie} from "../models/series/serie.model";
@@ -18,15 +19,16 @@ export class SerieController {
     async create(@Req() req, @Res() res) {
         let serieRepository = ava.connection.getRepository(Serie);
         let data = req.body;
-        data.path = ava.config.get('nas:root') + "/" + data.name;
+        data.path = path.join(ava.config.get('nas:root'), "/", data.name);
         data.size = 0;
 
         try {
             let serie = await serieRepository.save(data);
             fs.mkdirSync(data.path);
-
+            
             res.status(201).json({serie: serie});
         } catch (error) {
+            console.log(error);
             res.status(500).json({err: error});
         }
         

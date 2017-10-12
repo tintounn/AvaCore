@@ -11,7 +11,7 @@ export class Folder implements DownloadableInterface {
     @Column()
     name: string;
 
-    @Column()
+    @Column({unique: true})
     path: string;
 
     @Column()

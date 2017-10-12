@@ -13,10 +13,10 @@ export class SerieComponent implements OnInit {
 
   @ViewChild("serieEditor") serieEditor: SerieEditorComponent;
   @ViewChild("serieEditorModal") serieEditorModal: ModalDirective;
-
   @ViewChild("serieViewerModal") serieViewerModal: ModalDirective;
 
-  public series: Serie[] = [];
+  public filteredSeries: Serie[] = [];
+  private series: Serie[] = [];
 
   constructor(private serieFactory: SerieFactory) { }
 
@@ -27,13 +27,14 @@ export class SerieComponent implements OnInit {
   findAllSeries(search: string = "") {
     this.serieFactory.findAll(search).then((series) => {
       this.series = series;
+      this.filteredSeries = series;
     }).catch((err) => {
       console.log(err);
     });
   }
 
   openSerie(index: number) {
-    this.serieFactory.find(this.series[index].id).then((serie) => {
+    this.serieFactory.find(this.filteredSeries[index].id).then((serie) => {
       console.log(serie);
     }).catch((err) => {
       console.log(err);
@@ -55,10 +56,21 @@ export class SerieComponent implements OnInit {
 
   serieSaved(serie: Serie) {
     this.series.push(serie);
+    this.filteredSeries.push(serie);
     this.serieEditorModal.hide();
   }
 
   searchFired(value: string) {
-    this.findAllSeries(value);
+    this.filteredSeries = [];
+
+    if(!value) {
+      this.filteredSeries = this.series;
+    } else {
+      for(let serie of this.series) {
+        if(serie.name.toLowerCase().indexOf(value.toLocaleLowerCase()) > -1) {
+          this.filteredSeries.push(serie);
+        }
+      }
+    }
   }
 }

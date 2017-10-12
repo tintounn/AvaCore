@@ -11,12 +11,14 @@
 <br>
 
 <div class="row">
-  <ng-container *ngFor="let serie of series; let i = index;">
+  <ng-container *ngFor="let serie of filteredSeries; let i = index;">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 20px">
       <app-serie-card-item (click)="openSerie(i)" [serie]="serie"></app-serie-card-item>
     </div>
   </ng-container>
 </div>
+
+<br>
 
 <div class="modal fade" bsModal #serieEditorModal="bs-modal">
   <div class="modal-dialog modal-sm">

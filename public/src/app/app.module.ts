@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 import { AlertModule, CollapseModule, BsDropdownModule, SortableModule, 
-          BsDatepickerModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
+          BsDatepickerModule, ModalModule, TooltipModule, PaginationModule } from 'ngx-bootstrap';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -61,7 +61,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     SortableModule.forRoot(),
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [RequestService, SessionService, UserFactory, SerieFactory],
   bootstrap: [AppComponent]
