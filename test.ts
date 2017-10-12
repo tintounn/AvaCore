@@ -1,17 +1,10 @@
-import "reflect-metadata";
+import {TheMovieDbAPI} from "./libs/themoviedb/themoviedb.lib";
 
-function property(target: object, propertyKey: string) {
-    let columns: string[] = Reflect.getMetadata("ok", target.constructor) || [];
-    console.log(columns);
-    columns.push(propertyKey);
-    Reflect.defineMetadata("ok", columns, target.constructor);
-}
 
-function classs(target: object, propertyKey: string) {
+let api = new TheMovieDbAPI("token here");
+api.findMovie("transfomers").then((res) => {
+    console.log(res);
+}).catch((err) => {
+    console.log(err);
+});
 
-}
-
-class Point {
-	@property x: number;
-	@property y: number;
-}
