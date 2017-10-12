@@ -1,3 +1,38 @@
-<p>
-  serie-viewer works!
-</p>
+<div class="row">
+  <app-image
+    class="img-fluid rounded mx-auto d-block" 
+    style="max-height: 200px;"
+    [src]="serie.image"
+    [default]="'http://www.world-caps.com/1595-large_default/casquette-avec-logo-portrait-heisenberg-breaking-bad-serie-star-tv-jaune.jpg'">
+  </app-image>
+</div>
+<br><br>
+
+<p>Résumé</p>
+<hr>
+<div class="row">
+  <p class="col-12">{{serie.summary}}</p>
+</div>
+<br><br>
+
+<p>Saison(s)</p>
+<hr>
+<div class="row">
+  <ng-template class="col-12" *ngFor="let season of serie.seasons; let i = index;">
+    <div class="row">
+      <p>Saison {{season.number}}</p>
+    </div>
+  </ng-template>
+</div>
+<br><br>
+
+<p>Actions</p>
+<hr>
+<div class="row">
+  <div class="col-6">
+    <button style="width: 100%" type="button" class="btn btn-primary">Nouvelle saison</button>
+  </div>
+  <div class="col-6">
+    <button style="width: 100%" type="button" class="btn btn-danger">Supprimer</button>
+  </div>
+</div>

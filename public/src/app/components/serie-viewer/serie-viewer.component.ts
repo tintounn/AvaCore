@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Serie } from '../../models/serie.model';
 
 @Component({
   selector: 'app-serie-viewer',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SerieViewerComponent implements OnInit {
 
+  @Input("serie") serie: Serie = new Serie();
+
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
+  setSerie(serie: Serie) {
+    this.serie = serie;
+  }
 }

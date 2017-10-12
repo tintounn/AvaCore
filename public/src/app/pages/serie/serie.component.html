@@ -33,6 +33,8 @@
           <app-serie-editor (saved)="serieSaved($event)" #serieEditor></app-serie-editor>
       </div>
       <div class="modal-footer">
+          <!-- Mettre les bouttons dans le cpnt app-serie-editor -->
+
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-success" (click)="saveSerie()">Enregistrer</button>
             <button type="button" class="btn btn-secondary" (click)="serieEditorModal.hide()">Close</button>
@@ -43,18 +45,19 @@
 </div>
 
 <div class="modal fade" bsModal #serieViewerModal="bs-modal">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-            
-        </div>
-        <div class="modal-footer">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-secondary" >Close</button>
-              <button type="button" class="btn btn-danger" >Supprimer</button>
-            </div>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">{{serieViewer.serie.name}}</h4>
+        <button type="button" class="close pull-right" (click)="serieViewerModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <app-serie-viewer #serieViewer></app-serie-viewer>
       </div>
     </div>
   </div>
+</div>
 

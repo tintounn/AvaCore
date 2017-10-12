@@ -20,5 +20,4 @@ export class Serie extends Folder {
         cascadeUpdate: true
     })
     seasons: Season[];
-
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Serie, SerieFactory } from '../../models/serie.model';
-import { SerieEditorComponent } from "../../components/serie-editor/serie-editor.component";
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
+import { Serie, SerieFactory } from '../../models/serie.model';
+import { SerieEditorComponent } from "../../components/serie-editor/serie-editor.component";
+import { SerieViewerComponent } from "../../components/serie-viewer/serie-viewer.component";
 
 @Component({
   selector: 'app-serie',
@@ -12,11 +13,13 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 export class SerieComponent implements OnInit {
 
   @ViewChild("serieEditor") serieEditor: SerieEditorComponent;
+  @ViewChild("serieViewer") serieViewer: SerieViewerComponent;
   @ViewChild("serieEditorModal") serieEditorModal: ModalDirective;
   @ViewChild("serieViewerModal") serieViewerModal: ModalDirective;
 
   public filteredSeries: Serie[] = [];
   private series: Serie[] = [];
+  private searchValue: string;
 
   constructor(private serieFactory: SerieFactory) { }
 
@@ -27,7 +30,7 @@ export class SerieComponent implements OnInit {
   findAllSeries(search: string = "") {
     this.serieFactory.findAll(search).then((series) => {
       this.series = series;
-      this.filteredSeries = series;
+      this.filterSeries();
     }).catch((err) => {
       console.log(err);
     });
@@ -35,7 +38,8 @@ export class SerieComponent implements OnInit {
 
   openSerie(index: number) {
     this.serieFactory.find(this.filteredSeries[index].id).then((serie) => {
-      console.log(serie);
+      this.serieViewer.setSerie(serie);
+      this.serieViewerModal.show();
     }).catch((err) => {
       console.log(err);
     });
@@ -44,30 +48,26 @@ export class SerieComponent implements OnInit {
   saveSerie() {
     this.serieEditor.save();
   }
-
-  updateSerie(index: number) {
-    this.serieEditor.update(this.series[index]);
-    this.serieEditorModal.show();
-  }
-
-  deleteSerie(index: number) {
-
-  }
-
+  
   serieSaved(serie: Serie) {
     this.series.push(serie);
-    this.filteredSeries.push(serie);
+    this.filterSeries();
     this.serieEditorModal.hide();
   }
 
   searchFired(value: string) {
-    this.filteredSeries = [];
+    this.searchValue = value;
+    this.filterSeries();
+  }
 
-    if(!value) {
+  private filterSeries() {
+    this.filteredSeries = [];
+    
+    if(!this.searchValue) {
       this.filteredSeries = this.series;
     } else {
       for(let serie of this.series) {
-        if(serie.name.toLowerCase().indexOf(value.toLocaleLowerCase()) > -1) {
+        if(serie.name.toLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) > -1) {
           this.filteredSeries.push(serie);
         }
       }
