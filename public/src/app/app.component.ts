@@ -12,13 +12,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     let token: string = localStorage.getItem("ava-token");
-    this.router.navigateByUrl('/dashboard/series');
-    /*if(token) {
+    //this.router.navigateByUrl('/dashboard/series');
+    if(token) {
       //Requete qui check si le token est toujours valide
     } else {
       this.router.navigateByUrl('/login');
-    }*/
-
+    }
   }
-
 }

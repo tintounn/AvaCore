@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import {Season, SeasonFactory} from '../../models/season.model';
 
 @Component({
   selector: 'app-season-editor',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeasonEditorComponent implements OnInit {
 
-  constructor() { }
+  @Input('serieId') serieId: number;
+  @Output('saved') savedEvent: EventEmitter<Season> = new EventEmitter<Season>();
+  @Input('season') season: Season = new Season();
 
-  ngOnInit() {
-  }
+  constructor(private seasonFactory: SeasonFactory) { }
 
+  ngOnInit() { }
+
+  save() { }
 }

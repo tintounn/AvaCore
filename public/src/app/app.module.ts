@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 
 import { AlertModule, CollapseModule, BsDropdownModule, SortableModule, 
           BsDatepickerModule, ModalModule, TooltipModule, PaginationModule,
-          TypeaheadModule } from 'ngx-bootstrap';
+          TypeaheadModule, PopoverModule } from 'ngx-bootstrap';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { NasComponent } from './pages/nas/nas.component';
 
 import { UserFactory } from "./models/user.model";
 import { SerieFactory } from "./models/serie.model";
+import { SeasonFactory } from "./models/season.model";
 
 import { SessionService } from "./services/session.service";
 import { RequestService } from './services/request.service';
@@ -64,9 +65,10 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     PaginationModule.forRoot(),
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    PopoverModule.forRoot()
   ],
-  providers: [RequestService, SessionService, UserFactory, SerieFactory],
+  providers: [RequestService, SessionService, UserFactory, SerieFactory, SeasonFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

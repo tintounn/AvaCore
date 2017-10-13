@@ -30,9 +30,19 @@
 <hr>
 <div class="row">
   <div class="col-6">
-    <button style="width: 100%" type="button" class="btn btn-primary">Nouvelle saison</button>
+    <button style="width: 100%" type="button" class="btn btn-primary" #seasonEditorPopover="bs-popover" [popover]="popTemplate" popoverTitle="Editer une saison">Nouvelle saison</button>
   </div>
   <div class="col-6">
     <button style="width: 100%" type="button" class="btn btn-danger">Supprimer</button>
   </div>
 </div>
+
+
+<template #popTemplate >
+  <app-season-editor (saved)="serieSaved($event)" #seasonEditor></app-season-editor>
+
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-success" (click)="saveSeason()">Enregistrer</button>
+    <button type="button" class="btn btn-secondary" (click)="seasonEditorPopover.hide()">Close</button>
+  </div>
+</template>

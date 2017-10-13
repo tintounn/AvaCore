@@ -44,10 +44,6 @@ export class SerieComponent implements OnInit {
       console.log(err);
     });
   }
-
-  saveSerie() {
-    this.serieEditor.save();
-  }
   
   serieSaved(serie: Serie) {
     this.series.push(serie);
