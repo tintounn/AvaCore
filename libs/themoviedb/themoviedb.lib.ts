@@ -9,11 +9,11 @@ export class TheMovieDbAPI {
     this.apiKey = apiKey;
   }
 
-  findSerie(value: string) {
+  findSerie(value: string): any {
     
   }
 
-  findMovie(value: string) {
+  findMovie(value: string): any {
     return axios.default.get(this.url + "/search/movie", {params: {api_key: this.apiKey, query: value}, proxy: {host: '10.35.0.248', port:8080}});
   }
 }

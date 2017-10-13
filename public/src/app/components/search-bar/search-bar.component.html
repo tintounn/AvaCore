@@ -1,1 +1,1 @@
-<input style="width: 100%" (keydown)="onKeyPress()" [(ngModel)]="value" type="text" class="form-control" placeholder="Search ..." aria-label="Search for...">
+<input [attr.style]="safeStyle" (typeaheadOnSelect)="onSelected($event)" [typeahead]="data" (keydown)="onKeyPress()" [(ngModel)]="value" type="text" class="{{class}}" [typeaheadOptionField]="subData" [typeaheadWaitMs]="timeoutValue" placeholder="{{placeholder}}" aria-label="Search for...">

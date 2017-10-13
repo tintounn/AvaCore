@@ -12,6 +12,17 @@ export class SerieEditorComponent implements OnInit {
   @Input("serie") serie: Serie = new Serie();
   @Output("saved") savedEvent: EventEmitter<Serie> = new EventEmitter<Serie>();
 
+  public testData: any[] = [
+    {name: "The walking dead", summary: "This is a summary", image: "one big URL", date: "10/15/2017"},
+    {name: "Games of throne", summary: "This is a summary", image: "one big URL", date: "10/15/2017"},
+    {name: "The big bang theory", summary: "This is a summary", image: "one big URL", date: "10/15/2017"},
+    {name: "Interstellar", summary: "This is a summary", image: "one big URL", date: "10/15/2017"},
+    {name: "Oblivion", summary: "This is a summary", image: "one big URL", date: "10/15/2017"},
+    {name: "Stargate", summary: "This is a summary", image: "one big URL", date: "10/15/2017"},
+    {name: "Star wars", summary: "This is a summary", image: "one big URL", date: "10/15/2017"},
+    {name: "Star trek", summary: "This is a summary", image: "one big URL", date: "10/15/2017"}
+  ]
+
   constructor(private serieFactory: SerieFactory) { }
 
   ngOnInit() {
@@ -43,5 +54,12 @@ export class SerieEditorComponent implements OnInit {
 
   update(serie: Serie) {
     this.serie = serie;
+  }
+
+  onSerieSelected(serie: any) {
+    this.serie.name = serie.name;
+    this.serie.summary = serie.summary;
+    this.serie.image = serie.image;
+    this.serie.date = serie.date;
   }
 }

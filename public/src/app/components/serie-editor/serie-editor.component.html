@@ -1,4 +1,8 @@
 <div class="form-group">
+  <app-search-bar (selected)="onSerieSelected($event)" [data]="testData" [sub-data]="'name'" [placeholder]="'Search series...'" [class]="'col-12 form-control form-control-sm'"></app-search-bar>
+</div>
+
+<div class="form-group">
   <input [(ngModel)]="serie.name" name="name" class="col-12 form-control form-control-sm" type="text" placeholder="Nom de la série">
 </div>
 <div class="form-group"> 
